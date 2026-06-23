@@ -67,7 +67,9 @@ function App() {
             </Select>
           </FormControl>
           <DCGList
-            code={proposal ? proposal.proposalCode : null}
+            code={
+              proposal ? proposal.proposalCode + proposal.proposalNumber : null
+            }
             visit={visit}
           />
         </Stack>

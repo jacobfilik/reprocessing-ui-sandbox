@@ -7,7 +7,6 @@ export const handlers = [
   http.get(api + "proposals", async ({ request }) => {
     const url = new URL(request.url);
     const s = url.searchParams.get("search");
-    console.log(s);
 
     const p1: Proposal = {
       bltimeStamp: "2026-05-12T08:18:29",
