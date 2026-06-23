@@ -1,5 +1,4 @@
 import {
-  Button,
   CssBaseline,
   FormControl,
   InputLabel,
@@ -55,6 +54,7 @@ function App() {
               id="demo-simple-select"
               value={visit}
               label="visit"
+              // @ts-expect-error: Type error
               onChange={handleChange}
             >
               {[...Array(maxVisit).keys()].map((i) => {

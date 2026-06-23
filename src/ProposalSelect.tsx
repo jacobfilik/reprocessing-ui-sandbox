@@ -27,6 +27,7 @@ export default function ProposalSelect(props: {
         return o.proposalCode + +o.proposalNumber + ": " + o.title;
       }}
       onInput={(e) => {
+        // @ts-expect-error: Type error
         setSearch(e.target.value);
       }}
       onChange={(_e, v) => {

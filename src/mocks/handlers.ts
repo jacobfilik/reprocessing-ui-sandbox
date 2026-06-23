@@ -1,11 +1,5 @@
 import { http, HttpResponse } from "msw";
-import type {
-  DataCollectionGroup,
-  Paginated,
-  Proposal,
-  ProposalPage,
-  Session,
-} from "../models";
+import type { DataCollectionGroup, Paginated, Proposal } from "../models";
 
 const api = "/expeye/api/";
 

@@ -63,7 +63,7 @@ export function DCGList(props: { code: string | null; visit: number }) {
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState(1);
 
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 

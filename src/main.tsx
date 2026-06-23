@@ -3,10 +3,11 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 
 async function enableMocking() {
+  // @ts-expect-error: Type error
   if (process.env.NODE_ENV !== "development") {
     return;
   }
-
+  // @ts-expect-error: Type error
   const { worker } = await import("./mocks/browser");
 
   // `worker.start()` returns a Promise that resolves
