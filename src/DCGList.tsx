@@ -27,7 +27,7 @@ function DCGListInner(props: {
   code: string;
   visit: number;
   page: number;
-  setTotal: (total: number) => void;
+  setPage: (page: number) => void;
 }) {
   const query = useQuery({
     queryKey: [
@@ -42,9 +42,9 @@ function DCGListInner(props: {
     queryFn: () => getDCGPage(props.code, props.visit, 0, 25),
   });
 
-  if (query.data) {
-    props.setTotal(query.data.total);
-  }
+  const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+    props.setPage(value);
+  };
 
   return (
     <Stack>
@@ -55,17 +55,18 @@ function DCGListInner(props: {
       ) : (
         <Typography>No Data</Typography>
       )}
+      {query.data && (
+        <Pagination
+          count={Math.ceil(query.data.total / 25)}
+          onChange={handleChange}
+        />
+      )}
     </Stack>
   );
 }
 
 export function DCGList(props: { code: string | null; visit: number }) {
   const [page, setPage] = useState(0);
-  const [total, setTotal] = useState(1);
-
-  const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
-  };
 
   if (props.code == null) {
     return <Stack>No Visit Selected</Stack>;
@@ -76,9 +77,8 @@ export function DCGList(props: { code: string | null; visit: number }) {
         code={props.code}
         visit={props.visit}
         page={page}
-        setTotal={setTotal}
+        setPage={setPage}
       />
-      <Pagination count={Math.ceil(total / 25)} onChange={handleChange} />
     </Stack>
   );
 }
