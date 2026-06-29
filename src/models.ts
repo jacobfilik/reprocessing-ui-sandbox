@@ -77,9 +77,9 @@ export interface DataCollection {
   chiStart: unknown;
   comments: string | null;
   datFullPath: string | null;
-  dataCollectionGroupId: 18756674;
-  dataCollectionId: 22891289;
-  dataCollectionNumber: 1;
+  dataCollectionGroupId: number;
+  dataCollectionId: number;
+  dataCollectionNumber: number;
   dataCollectionPlanId: unknown;
   detector2Theta: unknown;
   detectorDistance: unknown;
@@ -87,8 +87,8 @@ export interface DataCollection {
   detectorMode: unknown;
   endTime: string | null;
   experimenttype: unknown;
-  exposureTime: 1;
-  fileTemplate: string;
+  exposureTime: unknown;
+  fileTemplate: string | null;
   flux: unknown;
   flux_end: unknown;
   imageContainerSubPath: string | null;
@@ -102,7 +102,7 @@ export interface DataCollection {
   maxDefocus: unknown;
   minDefocus: unknown;
   minResolution: unknown;
-  numberOfImages: 31140;
+  numberOfImages: unknown;
   numberOfPasses: unknown;
   omegaStart: unknown;
   overlap: unknown;
@@ -110,7 +110,7 @@ export interface DataCollection {
   phasePlate: unknown;
   phiStart: unknown;
   pixelSizeOnImage: unknown;
-  printableForReport: 1;
+  printableForReport: unknown;
   resolution: unknown;
   rotationAxis: unknown;
   runStatus: string | null;
@@ -138,23 +138,28 @@ export interface DataCollection {
 
 export interface AutoProcProgram {
   autoProc: unknown;
-  autoProcProgramId: 120461510;
-  processingCommandLine: "";
-  processingEndTime: "2026-05-12T08:47:28";
-  processingEnvironment: "";
-  processingMessage: "Processing Successful";
-  processingPrograms: "i18-xrf-tomo";
-  processingStartTime: "2026-05-12T08:18:30";
-  processingStatus: 1;
-  recordTimeStamp: "2026-05-12T08:18:30";
+  autoProcProgramId: number;
+  processingCommandLine: string | null;
+  processingEndTime: string | null;
+  processingEnvironment: string | null;
+  processingMessage: string | null;
+  processingPrograms: string | null;
+  processingStartTime: string | null;
+  processingStatus: number;
+  recordTimeStamp: string | null;
 }
 
 export interface ProcessingJob {
-  automatic: 1;
+  autoProcProgram: AutoProcProgram[];
+  automatic: number;
   comments: string | null;
   displayName: string | null;
   processingJobId: number;
   recipe: string | null;
   recordTimestamp: string | null;
   status: string | null;
+}
+
+export interface ProcessingParameters {
+  items: object;
 }

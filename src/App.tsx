@@ -1,77 +1,63 @@
 import {
+  Card,
+  CardContent,
   CssBaseline,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
   Stack,
   ThemeProvider,
   Typography,
   useTheme,
-  type SelectChangeEvent,
 } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import ProposalSelect from "./ProposalSelect";
-import type { Proposal } from "./models";
-import { useState } from "react";
+
+import { useCallback, useState } from "react";
 import { DCGList } from "./DCGList";
+import { DCGDetailCard } from "./DCGDetailCard";
+import ProposalChoose from "./ProposalChoose";
 
 const queryClient = new QueryClient();
 
 function App() {
   const theme = useTheme();
 
-  const [proposal, setProposal] = useState<Proposal | null>(null);
+  const [code, setCode] = useState<string | null>(null);
   const [visit, setVisit] = useState(1);
+  const [dcgid, setDcgid] = useState<null | number>(null);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setVisit(Number.parseInt(event.target.value));
-  };
+  const cachedSetDcgid = useCallback((id: number | null) => setDcgid(id), []);
 
-  const maxVisit = proposal ? proposal.sessions : 1;
-
+  //Need to memo to stop extra requests
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <QueryClientProvider client={queryClient}>
         <Stack sx={{ height: "100vh", width: "100vw" }} spacing={1}>
-          <Typography variant="h4">
-            {proposal
-              ? proposal.proposalCode + proposal.proposalNumber
-              : "No Proposal"}
-          </Typography>
-          <Typography variant="h4">{proposal ? proposal.title : ""}</Typography>
-          <ProposalSelect
-            setProposal={(p) => {
-              setProposal(p);
-              setVisit(1);
-            }}
-          ></ProposalSelect>
-          <FormControl>
-            <InputLabel id="demo-simple-select-label">Visit</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={visit}
-              label="visit"
-              // @ts-expect-error: Type error
-              onChange={handleChange}
-            >
-              {[...Array(maxVisit).keys()].map((i) => {
-                return (
-                  <MenuItem key={i + 1} value={i + 1}>
-                    {i + 1}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-          <DCGList
-            code={
-              proposal ? proposal.proposalCode + proposal.proposalNumber : null
-            }
+          <ProposalChoose
+            setCode={setCode}
+            setVisit={setVisit}
             visit={visit}
-          />
+          ></ProposalChoose>
+          <Stack direction="row">
+            <Stack sx={{ flex: 1 }}>
+              <DCGList
+                code={code ? code : null}
+                visit={visit}
+                setDcgid={cachedSetDcgid}
+              />
+            </Stack>
+            <Stack sx={{ flex: 1, margin: "5px" }}>
+              {dcgid ? (
+                <DCGDetailCard dcgid={dcgid}></DCGDetailCard>
+              ) : (
+                <Card>
+                  <CardContent>
+                    <Typography>
+                      "No Data Collection Groups selected"
+                    </Typography>
+                  </CardContent>
+                </Card>
+              )}
+            </Stack>
+          </Stack>
         </Stack>
       </QueryClientProvider>
     </ThemeProvider>
