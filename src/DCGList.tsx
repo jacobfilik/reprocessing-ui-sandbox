@@ -1,24 +1,51 @@
 import {
   Card,
+  CardActionArea,
   CardContent,
   Pagination,
   Stack,
   Typography,
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { getDCGPage } from "./queryfunctions";
+import { getDCGPage, getDCPage } from "./queryfunctions";
 import type { DataCollectionGroup } from "./models";
 import { useState } from "react";
 
-function DCGCard(props: { dcg: DataCollectionGroup }) {
+function DCGCard(props: {
+  dcg: DataCollectionGroup;
+  setDcgid: (dcgid: number | null) => void;
+}) {
+  const query = useQuery({
+    queryKey: [
+      "data-groups",
+      "data-collections",
+      props.dcg.dataCollectionGroupId,
+      1,
+    ],
+    queryFn: () => getDCPage(props.dcg.dataCollectionGroupId, 0, 1),
+  });
+
   return (
     <Card>
-      <CardContent>
-        <Typography>{props.dcg.startTime}</Typography>
-        <Typography>
-          {props.dcg.scanParameters ? props.dcg.scanParameters : ""}
-        </Typography>
-      </CardContent>
+      <CardActionArea
+        onClick={() => {
+          console.log(props.dcg.dataCollectionGroupId);
+          props.setDcgid(props.dcg.dataCollectionGroupId);
+        }}
+      >
+        <CardContent>
+          <Typography>{props.dcg.startTime}</Typography>
+          <Typography>
+            {props.dcg.scanParameters ? props.dcg.scanParameters : ""}
+          </Typography>
+          <Typography>
+            {query.data &&
+              query.data.items &&
+              query.data.items.length > 0 &&
+              query.data.items[0].fileTemplate}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 }
@@ -28,6 +55,7 @@ function DCGListInner(props: {
   visit: number;
   page: number;
   setPage: (page: number) => void;
+  setDcgid: (dcgid: number | null) => void;
 }) {
   const query = useQuery({
     queryKey: [
@@ -47,10 +75,16 @@ function DCGListInner(props: {
   };
 
   return (
-    <Stack>
+    <Stack spacing={"5px"} sx={{ padding: "5px" }}>
       {query.data ? (
         query.data.items.map((dcg) => {
-          return <DCGCard key={dcg.dataCollectionGroupId} dcg={dcg} />;
+          return (
+            <DCGCard
+              key={dcg.dataCollectionGroupId}
+              dcg={dcg}
+              setDcgid={props.setDcgid}
+            />
+          );
         })
       ) : (
         <Typography>No Data</Typography>
@@ -65,19 +99,24 @@ function DCGListInner(props: {
   );
 }
 
-export function DCGList(props: { code: string | null; visit: number }) {
+export function DCGList(props: {
+  code: string | null;
+  visit: number;
+  setDcgid: (dcgid: number | null) => void;
+}) {
   const [page, setPage] = useState(0);
 
   if (props.code == null) {
     return <Stack>No Visit Selected</Stack>;
   }
   return (
-    <Stack>
+    <Stack spacing={"5px"}>
       <DCGListInner
         code={props.code}
         visit={props.visit}
         page={page}
         setPage={setPage}
+        setDcgid={props.setDcgid}
       />
     </Stack>
   );

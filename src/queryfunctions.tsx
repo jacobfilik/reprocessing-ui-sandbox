@@ -1,7 +1,10 @@
 import axios, { type AxiosResponse } from "axios";
 import type {
+  DataCollection,
   DataCollectionGroup,
   Paginated,
+  ProcessingJob,
+  ProcessingParameters,
   Proposal,
   Session,
 } from "./models";
@@ -71,6 +74,54 @@ export const getDCGPage = async (
   const { data } = await axios.get<
     Paginated<DataCollectionGroup>,
     AxiosResponse<Paginated<DataCollectionGroup>>
+  >(url);
+  return data;
+};
+
+export const getDCPage = async (dcgid: number, page: number, limit: number) => {
+  const url =
+    api +
+    "data-groups" +
+    "/" +
+    dcgid +
+    "/data-collections" +
+    "?page=" +
+    page +
+    "&limit=" +
+    limit;
+
+  const { data } = await axios.get<
+    Paginated<DataCollection>,
+    AxiosResponse<Paginated<DataCollection>>
+  >(url);
+  return data;
+};
+
+export const getProcJob = async (dcid: number, page: number, limit: number) => {
+  const url =
+    api +
+    "data-collections" +
+    "/" +
+    dcid +
+    "/processing-jobs" +
+    "?page=" +
+    page +
+    "&limit=" +
+    limit;
+
+  const { data } = await axios.get<
+    Paginated<ProcessingJob>,
+    AxiosResponse<Paginated<ProcessingJob>>
+  >(url);
+  return data;
+};
+
+export const getProcParam = async (pjid: number) => {
+  const url = api + "processing-jobs" + "/" + pjid + "/parameters";
+
+  const { data } = await axios.get<
+    ProcessingParameters,
+    AxiosResponse<ProcessingParameters>
   >(url);
   return data;
 };
