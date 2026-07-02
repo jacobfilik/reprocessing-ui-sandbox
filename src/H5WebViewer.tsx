@@ -1,5 +1,13 @@
-import { App, createAxiosFetcher, H5GroveProvider } from "@h5web/app";
+import {
+  App,
+  createAxiosFetcher,
+  H5GroveProvider,
+  //   MockProvider,
+} from "@h5web/app";
 // import { useLocation } from "react-router-dom";
+
+import "@h5web/app/styles.css";
+// import "./h5web.css";
 
 // const URL = import.meta.env.VITE_H5GROVE_URL;
 // const FILEPATH = import.meta.env.VITE_H5GROVE_FALLBACK_FILEPATH;
@@ -34,7 +42,7 @@ export default function H5WebViewer(props: { dcid: number }) {
   return (
     <H5GroveProvider
       url={URL}
-      filepath={"file.h5"}
+      filepath={"from_dcid"}
       fetcher={createAxiosFetcher(api)}
       //   axiosConfig={{ params: { dcid: dcid, appaid: appaid } }}
     >
