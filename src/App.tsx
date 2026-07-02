@@ -13,6 +13,7 @@ import { useCallback, useState } from "react";
 import { DCGList } from "./DCGList";
 import { DCGDetailCard } from "./DCGDetailCard";
 import ProposalChoose from "./ProposalChoose";
+import H5WebViewer from "./H5WebViewer";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ function App() {
   const [code, setCode] = useState<string | null>(null);
   const [visit, setVisit] = useState(1);
   const [dcgid, setDcgid] = useState<null | number>(null);
+  const [dcid, setDcid] = useState<null | number>(null);
 
   const cachedSetDcgid = useCallback((id: number | null) => setDcgid(id), []);
 
@@ -46,7 +48,7 @@ function App() {
             </Stack>
             <Stack sx={{ flex: 1, margin: "5px" }}>
               {dcgid ? (
-                <DCGDetailCard dcgid={dcgid}></DCGDetailCard>
+                <DCGDetailCard dcgid={dcgid} setDcid={setDcid}></DCGDetailCard>
               ) : (
                 <Card>
                   <CardContent>
@@ -58,6 +60,7 @@ function App() {
               )}
             </Stack>
           </Stack>
+          {dcid && <H5WebViewer dcid={dcid}></H5WebViewer>}
         </Stack>
       </QueryClientProvider>
     </ThemeProvider>
