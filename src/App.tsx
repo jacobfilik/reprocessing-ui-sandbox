@@ -59,8 +59,14 @@ function App() {
                 </Card>
               )}
             </Stack>
+            <Stack sx={{ flex: 1, margin: "5px" }}>
+              <Typography>
+                {" "}
+                {dcid ? "DCid: " + dcid : "No datacollection"}
+              </Typography>
+              {dcid && <H5WebViewer dcid={dcid}></H5WebViewer>}
+            </Stack>
           </Stack>
-          {dcid && <H5WebViewer dcid={dcid}></H5WebViewer>}
         </Stack>
       </QueryClientProvider>
     </ThemeProvider>
