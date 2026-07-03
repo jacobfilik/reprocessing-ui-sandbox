@@ -7,6 +7,7 @@ import type {
   ProcessingParameters,
   Proposal,
   Session,
+  User,
 } from "./models";
 
 const api = "/expeye/api/";
@@ -124,4 +125,18 @@ export const getProcParam = async (pjid: number) => {
     AxiosResponse<ProcessingParameters>
   >(url);
   return data;
+};
+
+export const getUser = async () => {
+  const url = "/";
+
+  const { headers } = await axios.get<string, AxiosResponse<string>>(url);
+
+  const base64_identity = headers["identity"];
+
+  const id = atob(base64_identity.split(".")[1]);
+
+  const user: User = JSON.parse(id);
+
+  return user;
 };

@@ -89,6 +89,7 @@ function DCGListInner(props: {
       ) : (
         <Typography>No Data</Typography>
       )}
+
       {query.data && (
         <Pagination
           count={Math.ceil(query.data.total / 25)}
@@ -110,7 +111,7 @@ export function DCGList(props: {
     return <Stack>No Visit Selected</Stack>;
   }
   return (
-    <Stack spacing={"5px"}>
+    <Stack spacing={"5px"} sx={{ overflow: "auto" }}>
       <DCGListInner
         code={props.code}
         visit={props.visit}
