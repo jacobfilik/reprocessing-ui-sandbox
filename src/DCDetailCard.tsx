@@ -2,6 +2,7 @@ import { Card, CardContent, Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { getProcJob } from "./queryfunctions";
 import JPDetailCard from "./JPDetailCard";
+import AppAttachDetailCard from "./AppAttachDetailCard";
 
 export default function DCDetailCard(props: { dcid: number }) {
   const query = useQuery({
@@ -15,16 +16,25 @@ export default function DCDetailCard(props: { dcid: number }) {
           <Stack>
             {query.data.items.map((pj) => {
               return (
-                <Card>
-                  <CardContent>
-                    <Typography>{pj.recipe}</Typography>
-                    <Typography>
-                      {pj.autoProcProgram[0].processingPrograms}
-                    </Typography>
+                <Stack direction="row">
+                  <Card>
+                    <CardContent>
+                      <Typography>{pj.recipe}</Typography>
+                      <Typography>
+                        {pj.autoProcProgram[0].processingPrograms}
+                      </Typography>
 
-                    <JPDetailCard pjid={pj.processingJobId}></JPDetailCard>
-                  </CardContent>
-                </Card>
+                      <JPDetailCard pjid={pj.processingJobId}></JPDetailCard>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent>
+                      <AppAttachDetailCard
+                        appid={pj.autoProcProgram[0].autoProcProgramId}
+                      ></AppAttachDetailCard>
+                    </CardContent>
+                  </Card>
+                </Stack>
               );
             })}
           </Stack>

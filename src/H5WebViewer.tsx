@@ -22,7 +22,7 @@ function getFeedbackURL(context: FeedbackContext): string {
   return getFeedbackMailto(context, email);
 }
 
-export default function H5WebViewer(props: { dcid: number }) {
+export default function H5WebViewer(props: { dcid: string }) {
   // assertEnvVar(URL, 'VITE_H5GROVE_URL');
   //assertEnvVar(FILEPATH, 'VITE_H5GROVE_FALLBACK_FILEPATH');
 

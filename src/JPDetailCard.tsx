@@ -7,19 +7,22 @@ export default function JPDetailCard(props: { pjid: number }) {
     queryKey: ["processing-jobs", "parameters", props.pjid],
     queryFn: () => getProcParam(props.pjid),
   });
+
   return (
-    <Stack>
-      {query.data && query.data.items ? (
-        Object.entries(query.data.items).map((en, i) => {
-          return (
-            <Typography key={i}>
-              {en[0]} : {en[1]}
-            </Typography>
-          );
-        })
-      ) : (
-        <Typography>No Parameters</Typography>
-      )}
+    <Stack direction="row">
+      <Stack>
+        {query.data && query.data.items ? (
+          Object.entries(query.data.items).map((en, i) => {
+            return (
+              <Typography key={i}>
+                {en[0]} : {en[1]}
+              </Typography>
+            );
+          })
+        ) : (
+          <Typography>No Parameters</Typography>
+        )}
+      </Stack>
     </Stack>
   );
 }

@@ -3,6 +3,7 @@ import type {
   DataCollection,
   DataCollectionGroup,
   Paginated,
+  ProcessingAttachments,
   ProcessingJob,
   ProcessingParameters,
   Proposal,
@@ -55,7 +56,7 @@ export const getSessionPage = async (
 
 export const getDCGPage = async (
   code: string,
-  session: number,
+  session: string,
   page: number,
   limit: number,
 ) => {
@@ -79,7 +80,7 @@ export const getDCGPage = async (
   return data;
 };
 
-export const getDCPage = async (dcgid: number, page: number, limit: number) => {
+export const getDCPage = async (dcgid: string, page: number, limit: number) => {
   const url =
     api +
     "data-groups" +
@@ -139,4 +140,14 @@ export const getUser = async () => {
   const user: User = JSON.parse(id);
 
   return user;
+};
+
+export const getProcAttach = async (appid: number) => {
+  const url = api + "processing-programs" + "/" + appid + "/attachments";
+
+  const { data } = await axios.get<
+    Paginated<ProcessingAttachments>,
+    AxiosResponse<Paginated<ProcessingAttachments>>
+  >(url);
+  return data;
 };

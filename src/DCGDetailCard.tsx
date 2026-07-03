@@ -1,6 +1,6 @@
 import {
+  Button,
   Card,
-  CardActionArea,
   CardContent,
   Stack,
   Typography,
@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import DCDetailCard from "./DCDetailCard";
 
 export function DCGDetailCard(props: {
-  dcgid: number;
+  dcgid: string;
   setDcid: (id: number) => void;
 }) {
   const query = useQuery({
@@ -21,46 +21,47 @@ export function DCGDetailCard(props: {
     <Stack sx={{ overflow: "auto" }}>
       <Stack>
         <Card>
-          <CardActionArea
-            onClick={() => {
-              if (
-                query.data &&
+          <CardContent>
+            <Typography>
+              {query.data &&
                 query.data.items &&
-                query.data.items.length > 0
-              ) {
-                props.setDcid(query.data.items[0].dataCollectionId);
-              }
-            }}
-          >
-            <CardContent>
-              <Typography>
-                {query.data &&
+                query.data.items.length > 0 &&
+                query.data.items[0].fileTemplate}
+            </Typography>
+            <Button
+              onClick={() => {
+                if (
+                  query.data &&
                   query.data.items &&
-                  query.data.items.length > 0 &&
-                  query.data.items[0].fileTemplate}
-              </Typography>
-              <Stack spacing={"2px"} sx={{ overflow: "auto" }}>
-                {query.data &&
-                  query.data.items &&
-                  query.data.items.map((dc, i) => {
-                    return (
-                      <Stack>
-                        <Typography>
-                          {dc.dataCollectionId}{" "}
-                          {dc.imageContainerSubPath
-                            ? dc.imageContainerSubPath
-                            : "No detector path"}
-                        </Typography>
-                        <DCDetailCard
-                          key={i}
-                          dcid={dc.dataCollectionId}
-                        ></DCDetailCard>
-                      </Stack>
-                    );
-                  })}
-              </Stack>
-            </CardContent>
-          </CardActionArea>
+                  query.data.items.length > 0
+                ) {
+                  props.setDcid(query.data.items[0].dataCollectionId);
+                }
+              }}
+            >
+              Open Viewer
+            </Button>
+            <Stack spacing={"2px"} sx={{ overflow: "auto" }}>
+              {query.data &&
+                query.data.items &&
+                query.data.items.map((dc, i) => {
+                  return (
+                    <Stack>
+                      <Typography>
+                        {dc.dataCollectionId}{" "}
+                        {dc.imageContainerSubPath
+                          ? dc.imageContainerSubPath
+                          : "No detector path"}
+                      </Typography>
+                      <DCDetailCard
+                        key={i}
+                        dcid={dc.dataCollectionId}
+                      ></DCDetailCard>
+                    </Stack>
+                  );
+                })}
+            </Stack>
+          </CardContent>
         </Card>
       </Stack>
     </Stack>
