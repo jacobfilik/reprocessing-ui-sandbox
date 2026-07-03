@@ -24,12 +24,7 @@ export default function ProposalChoose(props: {
 
   return (
     <Stack spacing={"10px"} sx={{ margin: "5px" }}>
-      <Typography variant="h4">
-        {proposal
-          ? proposal.proposalCode + proposal.proposalNumber
-          : "No Proposal"}
-      </Typography>
-      <Typography variant="h4">{proposal ? proposal.title : ""}</Typography>
+      <Typography variant="h4">Select Visit</Typography>
       <ProposalSelect
         setProposal={(p) => {
           setProposal(p);

@@ -4,6 +4,7 @@ import type {
   DataCollection,
   DataCollectionGroup,
   Paginated,
+  ProcessingAttachments,
   ProcessingJob,
   ProcessingParameters,
   Proposal,
@@ -224,4 +225,27 @@ export const handlers = [
 
     return HttpResponse.json(pp);
   }),
+
+  http.get(
+    api + "processing-programs/:ppid/attachments",
+    async ({ params }) => {
+      const { ppid } = params;
+      console.log(ppid);
+
+      const p: ProcessingAttachments = {
+        fileName: "test.nxs",
+        filePath: "/testpath/",
+        fileType: "Result",
+      };
+
+      const page: Paginated<ProcessingAttachments> = {
+        items: [p, p],
+        limit: 25,
+        total: 2,
+        page: 1,
+      };
+
+      return HttpResponse.json(page);
+    },
+  ),
 ];

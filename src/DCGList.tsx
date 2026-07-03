@@ -22,7 +22,7 @@ function DCGCard(props: {
       props.dcg.dataCollectionGroupId,
       1,
     ],
-    queryFn: () => getDCPage(props.dcg.dataCollectionGroupId, 0, 1),
+    queryFn: () => getDCPage(props.dcg.dataCollectionGroupId.toString(), 0, 1),
   });
 
   return (
@@ -52,7 +52,7 @@ function DCGCard(props: {
 
 function DCGListInner(props: {
   code: string;
-  visit: number;
+  visit: string;
   page: number;
   setPage: (page: number) => void;
   setDcgid: (dcgid: number | null) => void;
@@ -102,7 +102,7 @@ function DCGListInner(props: {
 
 export function DCGList(props: {
   code: string | null;
-  visit: number;
+  visit: string;
   setDcgid: (dcgid: number | null) => void;
 }) {
   const [page, setPage] = useState(0);
