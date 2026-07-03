@@ -163,3 +163,16 @@ export interface ProcessingJob {
 export interface ProcessingParameters {
   items: object;
 }
+
+// r = await fetch("expeye/api/processing-programs/119448533/attachments");
+export interface ProcessingAttachments {
+  fileType: string;
+  fileName: string;
+  filePath: string;
+}
+
+export interface User {
+  preferred_username: string;
+  given_name: string;
+  family_name: string;
+}
