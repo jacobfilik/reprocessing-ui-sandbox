@@ -22,7 +22,10 @@ function getFeedbackURL(context: FeedbackContext): string {
   return getFeedbackMailto(context, email);
 }
 
-export default function H5WebViewer(props: { dcid: string }) {
+export default function H5WebViewerAP(props: {
+  appaid: string;
+  filename: string;
+}) {
   // assertEnvVar(URL, 'VITE_H5GROVE_URL');
   //assertEnvVar(FILEPATH, 'VITE_H5GROVE_FALLBACK_FILEPATH');
 
@@ -35,13 +38,13 @@ export default function H5WebViewer(props: { dcid: string }) {
   //   const appaid = query.get("appaid");
 
   const api = axios.create({
-    params: { dcid: props.dcid },
+    params: { appaid: props.appaid, filename: props.filename },
   });
 
   return (
     <H5GroveProvider
       url={URL}
-      filepath={"from_dcid"}
+      filepath={"from_appaid"}
       fetcher={createAxiosFetcher(api)}
       //   axiosConfig={{ params: { dcid: dcid, appaid: appaid } }}
     >
