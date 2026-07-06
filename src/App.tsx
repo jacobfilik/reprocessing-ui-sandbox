@@ -12,6 +12,7 @@ import MainPage from "./MainPage";
 import VisitReviewPage from "./VisitReviewPage";
 import DCGReviewPage from "./DCGReviewPage";
 import DCViewerPage from "./DCViewerPage";
+import APViewerPage from "./APViewerPage";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,10 @@ function App() {
               <Route
                 path="/visits/:visit_id/dcg/:dcg_id/dcviewer/:dc_id"
                 element={<DCViewerPage />}
+              />
+              <Route
+                path="/visits/:visit_id/dcg/:dcg_id/apviewer/:appa_id/:filename"
+                element={<APViewerPage />}
               />
             </Routes>
           </Stack>

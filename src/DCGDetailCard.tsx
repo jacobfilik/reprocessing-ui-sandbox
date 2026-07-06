@@ -1,10 +1,4 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Button, Card, CardContent, Stack, Typography } from "@mui/material";
 import { getDCPage } from "./queryfunctions";
 import { useQuery } from "@tanstack/react-query";
 import DCDetailCard from "./DCDetailCard";
@@ -12,6 +6,7 @@ import DCDetailCard from "./DCDetailCard";
 export function DCGDetailCard(props: {
   dcgid: string;
   setDcid: (id: number) => void;
+  setAppAInfo: (appaid: number, fileName: string) => void;
 }) {
   const query = useQuery({
     queryKey: ["data-groups", "data-collections", props.dcgid, 10],
@@ -56,6 +51,7 @@ export function DCGDetailCard(props: {
                       <DCDetailCard
                         key={i}
                         dcid={dc.dataCollectionId}
+                        setAppAInfo={props.setAppAInfo}
                       ></DCDetailCard>
                     </Stack>
                   );

@@ -24,6 +24,21 @@ export default function DCGReviewPage() {
           );
         }
       }}
+      setAppAInfo={(appaid: number, fileName: string) => {
+        console.log(appaid);
+        if (appaid != null) {
+          navigate(
+            "/visits/" +
+              visit_id +
+              "/dcg/" +
+              dcg_id +
+              "/apviewer/" +
+              appaid +
+              "/" +
+              fileName,
+          );
+        }
+      }}
     ></DCGDetailCard>
   );
 }

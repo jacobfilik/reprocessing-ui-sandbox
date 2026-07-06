@@ -4,7 +4,10 @@ import { getProcJob } from "./queryfunctions";
 import JPDetailCard from "./JPDetailCard";
 import AppAttachDetailCard from "./AppAttachDetailCard";
 
-export default function DCDetailCard(props: { dcid: number }) {
+export default function DCDetailCard(props: {
+  dcid: number;
+  setAppAInfo: (appaid: number, fileName: string) => void;
+}) {
   const query = useQuery({
     queryKey: ["data-collections", "processing-jobs", props.dcid, 10],
     queryFn: () => getProcJob(props.dcid, 0, 10),
@@ -31,6 +34,7 @@ export default function DCDetailCard(props: { dcid: number }) {
                     <CardContent>
                       <AppAttachDetailCard
                         appid={pj.autoProcProgram[0].autoProcProgramId}
+                        setAppAInfo={props.setAppAInfo}
                       ></AppAttachDetailCard>
                     </CardContent>
                   </Card>

@@ -169,6 +169,7 @@ export interface ProcessingAttachments {
   fileType: string;
   fileName: string;
   filePath: string;
+  autoProcProgramAttachmentId: number;
 }
 
 export interface User {

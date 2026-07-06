@@ -236,6 +236,7 @@ export const handlers = [
         fileName: "test.nxs",
         filePath: "/testpath/",
         fileType: "Result",
+        autoProcProgramAttachmentId: 23,
       };
 
       const page: Paginated<ProcessingAttachments> = {
