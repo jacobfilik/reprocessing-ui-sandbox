@@ -24,10 +24,7 @@ export default function AppAttachDetailCard(props: {
                 en.fileName.endsWith(".hdf5")) && (
                 <Button
                   onClick={() => {
-                    props.setAppAInfo(
-                      en.autoProcProgramAttachmentId,
-                      en.fileName,
-                    );
+                    props.setAppAInfo(props.appid, en.fileName);
                   }}
                 >
                   Click
