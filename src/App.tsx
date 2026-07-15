@@ -1,4 +1,4 @@
-import { Breadcrumbs, CssBaseline, Stack } from "@mui/material";
+import { CssBaseline, Stack } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { UserProvider } from "./UserContext";
