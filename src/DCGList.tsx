@@ -4,13 +4,12 @@ import {
   CardContent,
   Pagination,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { getDCGPage, getDCPage } from "./queryfunctions";
 import type { DataCollectionGroup } from "./models";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function DCGCard(props: {
   dcg: DataCollectionGroup;
@@ -51,28 +50,6 @@ function DCGCard(props: {
   );
 }
 
-function DebouncedFilter(props: { setFilter: (f: string) => void }) {
-  const [localFilter, setLocalFilter] = useState("");
-
-  const setFilter = props.setFilter;
-
-  useEffect(() => {
-    const delayInputTimeoutId = setTimeout(() => {
-      setFilter(localFilter);
-    }, 500);
-    return () => clearTimeout(delayInputTimeoutId);
-  }, [localFilter, setFilter]);
-
-  return (
-    <TextField
-      value={localFilter}
-      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-        setLocalFilter(event.target.value);
-      }}
-    ></TextField>
-  );
-}
-
 function DCGListInner(props: {
   code: string;
   visit: string;
@@ -80,7 +57,6 @@ function DCGListInner(props: {
   setPage: (page: number) => void;
   setDcgid: (dcgid: number | null) => void;
 }) {
-  const [filter, setFilter] = useState("");
   const query = useQuery({
     queryKey: [
       "proposals",
@@ -89,10 +65,9 @@ function DCGListInner(props: {
       props.code,
       props.visit,
       props.page,
-      filter,
       25,
     ],
-    queryFn: () => getDCGPage(props.code, props.visit, props.page, filter, 25),
+    queryFn: () => getDCGPage(props.code, props.visit, props.page, 25),
   });
 
   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
@@ -101,7 +76,6 @@ function DCGListInner(props: {
 
   return (
     <Stack spacing={"5px"} sx={{ padding: "5px" }}>
-      <DebouncedFilter setFilter={setFilter}></DebouncedFilter>
       {query.data ? (
         query.data.items.reverse().map((dcg) => {
           return (

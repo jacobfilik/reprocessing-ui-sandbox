@@ -58,7 +58,6 @@ export const getDCGPage = async (
   code: string,
   session: string,
   page: number,
-  filter: string,
   limit: number,
 ) => {
   const url =
@@ -72,9 +71,7 @@ export const getDCGPage = async (
     "?page=" +
     page +
     "&limit=" +
-    limit +
-    "&search=" +
-    filter;
+    limit;
 
   const { data } = await axios.get<
     Paginated<DataCollectionGroup>,
