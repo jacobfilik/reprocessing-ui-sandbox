@@ -132,7 +132,7 @@ export const getProcParam = async (pjid: number) => {
 };
 
 export const getUser = async () => {
-  const url = "/oauth2/userinfo";
+  const url = "/groveapi/helloauth";
 
   const { headers } = await axios.get<string, AxiosResponse<string>>(url);
 
