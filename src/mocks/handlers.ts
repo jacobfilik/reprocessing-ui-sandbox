@@ -80,7 +80,7 @@ export const handlers = [
       const page: Paginated<DataCollectionGroup> = {
         items: [dcg1, dcg2],
         limit: 25,
-        total: 2,
+        total: 60,
         page: 1,
       };
 

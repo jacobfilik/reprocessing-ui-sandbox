@@ -26,30 +26,6 @@ export default function VisitReviewPage() {
             }}
           />
         </Stack>
-        {/* <Stack sx={{ flex: 1, margin: "5px" }}>
-                  {dcgid ? (
-                    <DCGDetailCard
-                      dcgid={dcgid}
-                      setDcid={setDcid}
-                    ></DCGDetailCard>
-                  ) : (
-                    <Card>
-                      <CardContent>
-                        <Typography>
-                          "No Data Collection Groups selected"
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  )}
-                </Stack>
-              </Stack>
-              <Stack sx={{ flex: 1, margin: "5px" }}>
-                <Typography>
-                  {" "}
-                  {dcid ? "DCid: " + dcid : "No datacollection"}
-                </Typography>
-                {dcid && <H5WebViewer dcid={dcid}></H5WebViewer>}
-              </Stack> */}
       </Stack>
     </Stack>
   );

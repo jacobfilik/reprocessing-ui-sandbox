@@ -58,6 +58,7 @@ export const getDCGPage = async (
   code: string,
   session: string,
   page: number,
+  filter: string,
   limit: number,
 ) => {
   const url =
@@ -71,7 +72,9 @@ export const getDCGPage = async (
     "?page=" +
     page +
     "&limit=" +
-    limit;
+    limit +
+    "&search=" +
+    filter;
 
   const { data } = await axios.get<
     Paginated<DataCollectionGroup>,
@@ -129,7 +132,7 @@ export const getProcParam = async (pjid: number) => {
 };
 
 export const getUser = async () => {
-  const url = "/";
+  const url = "/oauth2/userinfo";
 
   const { headers } = await axios.get<string, AxiosResponse<string>>(url);
 
